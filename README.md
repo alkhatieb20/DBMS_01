@@ -362,16 +362,20 @@ EOF
 
 **Question 2.1:** The shell solution filters by date using `grep -rh "2026-03"`. What problem could arise if a sensor value happened to contain the string `2026-03` — for example as part of an error note? How does the SQL solution handle this problem?
 
-> *Your answer:*
+> *Your answer:*If a sensor value, location name, or an error note happened to contain the string "2026-03", the shell solution (grep) would incorrectly include that entire row in the results because it searches the entire text of the line indiscriminately. The SQL solution prevents this problem entirely by explicitly targeting a specific column (WHERE timestamp LIKE '2026-03-%'), completely ignoring the contents of the location or value_celsius columns.
 
 **Question 2.2:** The SQL solution uses `timestamp LIKE '2026-03-%'` for the date filter instead of a proper date function. Name one advantage and one disadvantage of this approach.
 
-> *Your answer:*
+> *Your answer:*Advantage: Performance and simplicity. Because the timestamp is stored as text in the standard ISO 8601 format, a simple string prefix match (LIKE '2026-03-%') is extremely fast and can efficiently utilize a database index without the computational overhead of parsing text into a date object.
+Disadvantage: Lack of date awareness. String matching cannot perform date arithmetic (such as finding all readings within exactly 30 days) or validate if the date is actually real (it would happily match '2026-03-99'). It would also fail completely if the date format were ever changed (e.g., to DD-MM-YYYY).
 
 **Question 2.3:** The SQL solution returns results sorted by `ORDER BY value_celsius DESC`. The shell solution does not include this sorting. Extend the shell solution to also sort by temperature in descending order and write your command here.
 
 > *Your answer (extended shell command):*
-
+grep -rh "2026-03" sensordata/ \
+  | grep -v "^timestamp" \
+  | awk -F',' '$4 > 25.0 {print $1, $2, $4}' \
+  | sort -k3,3nr
 ---
 
 ## Task 3 — Per-sensor statistics: min, max, and average temperature
