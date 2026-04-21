@@ -276,15 +276,15 @@ Answer the following questions in your own words and add your answers directly b
 
 **Question 1.1:** Why is `grep -v "^timestamp"` needed in the shell solution even though the files are already filtered with `grep -h "T02"`? Could this step be omitted? Justify your answer.
 
-> *Your answer:*
+> *Your answer:* Yes, this step could be omitted in this specific case. The header line (timestamp,sensor_id,...) does not contain the string "T02", so the first command grep -h "T02" already filters it out automatically. However, keeping grep -v "^timestamp" is a good practice and acts as a safety net in case a future data value or error note happens to contain the substring "T02" along with the header.
 
 **Question 1.2:** The shell solution uses `sensordata/T02_*.csv` as a file pattern, even though `grep -h "T02"` already filters for `T02`. Why is the file pattern still important — and what would happen if you used `sensordata/*.csv` instead?
 
-> *Your answer:*
+> *Your answer:*The file pattern sensordata/T02_*.csv is important for performance optimization. It restricts the search to only the 30 files belonging to sensor T02. If we used sensordata/*.csv instead, the final output would be exactly the same, but the shell would unnecessarily open and read all 120 files. This approach avoids wasted disk I/O and processing time.
 
 **Question 1.3:** The SQL solution uses `ORDER BY timestamp` even though `timestamp` is stored as type `TEXT`. Why does chronological sorting still work correctly? Under what condition would it fail?
 
-> *Your answer:*
+> *Your answer:*The chronological sorting works correctly because the timestamps are stored in the ISO 8601 format (YYYY-MM-DDTHH:MM:SS). In this format, the largest time units (years) appear first, and all components are zero-padded. Therefore, a standard lexicographical (alphabetical) text sort perfectly matches the chronological order. This would fail if the date format used a different order (like DD-MM-YYYY) or lacked zero-padding (which would cause a text sort to place '10' before '3').
 
 ---
 
