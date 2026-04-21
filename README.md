@@ -1,5 +1,4 @@
-<img width="935" height="179" alt="Screenshot_2" src="https://github.com/user-attachments/assets/ed521bf1-ccb5-4e4d-bfbe-1915365ae4d7" />
-<img width="935" height="179" alt="Screenshot_2" src="https://github.com/user-attachments/assets/40c77d5a-6d09-4317-b66a-ec93fbe7352b" />
+
 <!-- Bild einbetten: ![Alternativer Text](relativer/pfad/zur/datei) -->
 ![SQLite Logo](assets/sqlite3_logo.gif)
 
