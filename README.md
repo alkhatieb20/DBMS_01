@@ -1,3 +1,5 @@
+<img width="935" height="179" alt="Screenshot_2" src="https://github.com/user-attachments/assets/ed521bf1-ccb5-4e4d-bfbe-1915365ae4d7" />
+<img width="935" height="179" alt="Screenshot_2" src="https://github.com/user-attachments/assets/40c77d5a-6d09-4317-b66a-ec93fbe7352b" />
 <!-- Bild einbetten: ![Alternativer Text](relativer/pfad/zur/datei) -->
 ![SQLite Logo](assets/sqlite3_logo.gif)
 
@@ -110,7 +112,8 @@ cat sensordata/T01_2026-03-01.csv
 
 > **Screenshot 2:** Take a screenshot showing the output of `ls sensordata/ | head -8` and the contents of one CSV file, and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="935" height="179" alt="Screenshot_2" src="https://github.com/user-attachments/assets/909e8d7c-186f-4770-a05a-f8c573bbca5d" />
+
 
 ### What does the script do, line by line?
 
@@ -200,7 +203,8 @@ echo "Import complete."
 
 > **Screenshot 3:** Take a screenshot showing the successful execution of the import script and the result of the `COUNT(*)` query, and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="928" height="231" alt="Screenshot_3" src="https://github.com/user-attachments/assets/49d2773c-dc51-43f1-87cd-8a741c34e150" />
+
 
 ---
 
@@ -269,7 +273,9 @@ EOF
 
 > **Screenshot 4:** Take a screenshot showing the output of the Task 1 SQLite query (the first and last few rows are sufficient), and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="929" height="202" alt="Screenshot_4" src="https://github.com/user-attachments/assets/a5df923e-6adc-4095-9f2f-48f1b3a16151" />
+<img width="923" height="306" alt="Screenshot_4 1" src="https://github.com/user-attachments/assets/8208af71-9f5e-4527-bfef-f25f91f2ef8b" />
+
 
 ### Questions for Task 1
 
@@ -357,7 +363,8 @@ EOF
 
 > **Screenshot 5:** Take a screenshot showing the output of the Task 2 SQLite query and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="922" height="379" alt="Screenshot_5" src="https://github.com/user-attachments/assets/41e42df9-5640-45cc-a926-06c464c6b5e6" />
+
 
 ### Questions for Task 2
 
@@ -462,7 +469,8 @@ EOF
 
 > **Screenshot 6:** Take a screenshot showing the output of the Task 3 SQLite query — the four rows with sensor statistics — and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="934" height="166" alt="Screenshot_6" src="https://github.com/user-attachments/assets/47d71d49-a902-492f-a6e6-647bd7d4633e" />
+
 
 ### Questions for Task 3
 
@@ -516,7 +524,8 @@ SQL is called a *declarative* language: you describe *what* you want, not *how* 
 
 > **Screenshot 7:** Take a final screenshot of your terminal showing the SQLite prompt with a query of your own invention on the `readings` table — one you came up with yourself that goes beyond the tasks above — and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="928" height="137" alt="Screenshot_7" src="https://github.com/user-attachments/assets/f338305f-735e-472f-8531-f3866fde9584" />
+
 
 ---
 
