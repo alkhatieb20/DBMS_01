@@ -61,7 +61,8 @@ If any of the above commands return `command not found`, resolve the installatio
 
 > **Screenshot 1:** Take a screenshot of your terminal showing all four successful version checks and insert it here.
 >
-> `[insert screenshot]`
+> `[insert screenshot]`<img width="924" height="424" alt="Screenshot_1" src="https://github.com/user-attachments/assets/ba0e8c8b-baf3-4683-81e2-0cafe9165fe3" />
+
 
 ---
 
@@ -467,15 +468,25 @@ EOF
 
 **Question 3.1:** The `awk` solution initialises `min=9999` and `max=-9999`. What would happen if all temperature values in the dataset were greater than 9999? How could the initialisation be made more robust?
 
-> *Your answer:*
+> *Your answer:* If all temperature values in the dataset were greater than 9999, the condition if(v < min) would never evaluate to true. Consequently, the minimum value would incorrectly remain exactly 9999 at the end of the script. To make the initialization more robust, min and max should not be hardcoded to arbitrary limits. Instead, they should be initialized using the very first data value processed from the file (e.g., using a flag or checking the record number NR==1 to set the initial values).
 
 **Question 3.2:** The SQL solution uses `GROUP BY sensor_id`. What would the query return *without* this clause — i.e. if you ran `SELECT sensor_id, MIN(value_celsius), MAX(value_celsius), ROUND(AVG(value_celsius), 1) FROM readings`? Try it and describe the result.
 
-> *Your answer:*
+> *Your answer:* Without the GROUP BY sensor_id clause, the SQL engine would treat the entire readings table as one single group. The query would return exactly one row containing an arbitrary sensor_id (usually from the first row it reads), the global minimum temperature across all sensors, the global maximum, and the global average for all 360 records combined.
 
 **Question 3.3:** Extend the SQL query with an additional column `COUNT(*) AS num_readings` that shows the total number of measurements for each sensor. Write the complete extended query here.
 
 > *Your answer (extended SQL query):*
+sqlite3 sensors.db <<'EOF'
+SELECT sensor_id,
+       MIN(value_celsius) AS min_temp,
+       MAX(value_celsius) AS max_temp,
+       ROUND(AVG(value_celsius), 1) AS avg_temp,
+       COUNT(*) AS num_readings
+FROM   readings
+GROUP  BY sensor_id
+ORDER  BY sensor_id;
+EOF
 
 ---
 
@@ -486,22 +497,22 @@ After completing all three tasks, answer the following questions:
 **Question A — Writing effort:**
 Which approach was easier to write correctly on the first try? Explain which properties of each language contributed to this.
 
-> *Your answer:*
+> *Your answer:* The SQL approach was significantly easier to write correctly on the first try. SQL is a declarative language, meaning its syntax closely resembles natural language (e.g., SELECT, WHERE, GROUP BY), allowing the user to focus purely on the logic of what data is needed. The shell approach, being imperative, required chaining multiple completely different tools (grep, awk, sort, cut), remembering their specific command-line flags, and manually writing the logic to process data line by line.
 
 **Question B — Extensibility:**
 What would you need to change in the shell solution if a fifth sensor `T05` were added? What about the SQL solution? Which approach scales better — and why?
 
-> *Your answer:*
+> *Your answer:* In the shell solution, the sensors were hardcoded into a loop (for sensor in T01 T02 T03 T04). Adding a fifth sensor "T05" would require manually modifying the script to include it. In the SQL solution, absolutely nothing needs to be changed. The GROUP BY sensor_id clause automatically detects all unique sensors in the database and groups them dynamically. Therefore, the database approach scales infinitely better when new data categories are introduced.
 
 **Question C — Performance:**
 The shell solution reads files from disk on every invocation. A database can cache frequently queried data in memory. What does this mean for performance with 10 000 sensors and multi-year measurement data?
 
-> *Your answer:*
+> *Your answer:* The shell solution relies heavily on continuous Disk I/O, re-reading every single file from the hard drive sequentially for every new query. With 10,000 sensors and multi-year data (millions of files), the shell pipeline would take an enormous amount of time and likely crash. A database, however, optimizes this process through memory caching, indexing (e.g., B-Trees), and query planners. It can locate and retrieve specific data points almost instantly without scanning irrelevant rows, making it the only viable option for large datasets.
 
 **Question D — Declarative vs. imperative:**
 SQL is called a *declarative* language: you describe *what* you want, not *how* to compute it. Bash/awk, by contrast, are *imperative*: you write step by step how the result is to be computed. In which of the three tasks did you feel this difference most clearly? Justify your choice.
 
-> *Your answer:*
+> *Your answer:* I felt this difference most clearly in Task 3 (Per-sensor statistics). In the shell solution, I had to write an imperative awk script where I manually defined the mathematical steps: initializing variables to 9999, creating an explicit loop, checking conditions line-by-line (if v < min), and manually coding the formula for the average (sum/n). In the SQL solution, I simply declared what I wanted using built-in functions (MIN, MAX, AVG), and the database management system completely hid the "how" from me, absorbing all the algorithmic complexity.
 
 > **Screenshot 7:** Take a final screenshot of your terminal showing the SQLite prompt with a query of your own invention on the `readings` table — one you came up with yourself that goes beyond the tasks above — and insert it here.
 >
